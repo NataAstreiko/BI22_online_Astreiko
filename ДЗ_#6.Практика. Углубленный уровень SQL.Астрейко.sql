@@ -1,4 +1,3 @@
-﻿
 Теорию почитала
 
 1) При каких значениях оконные функции ROW_NUMBER, RANK и DENSE_RANK вернут одинаковый результат?
@@ -18,13 +17,6 @@ VALUES
 
 2b)
 
---в двух нижних запросах подчеркивает схему с таблицей почему-то
-CREATE TABLE Production.UnitMeasureTest (
-	UnitMeasureCode nchar(3) NOT NULL PRIMARY KEY,
-	Name nvarchar(50) NOT NULL,
-	ModifiedDate datetime NOT NULL
-)
-
 SELECT *
 INTO Production.UnitMeasureTest
 FROM Production.UnitMeasure
@@ -34,14 +26,14 @@ INSERT INTO Production.UnitMeasureTest
 SELECT * FROM Production.UnitMeasure
 WHERE UnitMeasureCode='CAN'
 
-SELECT * FROM Production.UnitMeasureTest --работает
+SELECT * FROM Production.UnitMeasureTest -- для проверки
 
 2с)
 
-UPDATE Production.UnitMeasureTest -- а вот это уже не работает. почему не понимаю
+UPDATE Production.UnitMeasureTest
 SET UnitMeasureCode ='TTT'
 
-2d) DELETE Production.UnitMeasureTest
+2d) DELETE UnitMeasureTest
 
 2e)	
 
