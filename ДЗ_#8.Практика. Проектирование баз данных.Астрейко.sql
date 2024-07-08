@@ -3,7 +3,7 @@ SELECT DISTINCT pp.Name as ProductName, pp.ProductNumber,coalesce(pp.Class,'n/d'
 CASE
 WHEN pp.Size LIKE '%[a-z]%' THEN 'Lateral'
 WHEN pp.Size LIKE '%[0-9]%' THEN 'Numeric'
-WHEN pp.Size IS NULL THEN 'Unknown' --или ELSE (на случай, если кто-то поставил прочерк, а не ничего)
+WHEN pp.Size IS NULL THEN 'Unknown' --ГЁГ«ГЁ ELSE (Г­Г  Г±Г«ГіГ·Г Г©, ГҐГ±Г«ГЁ ГЄГІГ®-ГІГ® ГЇГ®Г±ГІГ ГўГЁГ« ГЇГ°Г®Г·ГҐГ°ГЄ, Г  Г­ГҐ Г­ГЁГ·ГҐГЈГ®)
 END as Product_size,
 coalesce(first_value(pv.Name) over (partition by pp.Name order by ppv.lastReceiptDate), 'n/d') as VendorName,
 coalesce(ppm.Name , 'n/d') as ModelName,
@@ -18,7 +18,7 @@ on pv.BusinessEntityID=ppv.BusinessEntityID
 and pv.CreditRating = 1
 and pv.ActiveFlag = 1
 
-left join (select  pod.ProductID, avg(pod.UnitPrice) as AvgUnitPrice ---как исполняется "запрос должен выполняться не более 10 секунд"?
+left join (select  pod.ProductID, avg(pod.UnitPrice) as AvgUnitPrice ---ГЄГ ГЄ ГЁГ±ГЇГ®Г«Г­ГїГҐГІГ±Гї "Г§Г ГЇГ°Г®Г± Г¤Г®Г«Г¦ГҐГ­ ГўГ»ГЇГ®Г«Г­ГїГІГјГ±Гї Г­ГҐ ГЎГ®Г«ГҐГҐ 10 Г±ГҐГЄГіГ­Г¤"?
 			from Purchasing.PurchaseOrderHeader as poh
 			join Purchasing.PurchaseOrderDetail as pod
 			on poh.PurchaseOrderID = pod.PurchaseOrderID
