@@ -2,23 +2,19 @@
 
 --*4. Создайте функцию, которая возвращает температуру в градусах Фаренгейта, при подаче на вход градусы в Цельсиях.(F = C * 9/5 +32)
 
-CREATE FUNCTION sales.temperature3
-(
-	@celsius DECIMAL (5,1)
-)
-RETURNS DECIMAL (5,1)
+
+GO
+CREATE FUNCTION functi(@temp_c DECIMAL(5,1))
+RETURNS DECIMAL(5,1)
 AS
-BEGIN 
-RETURN @celsius*9/5+32;
+BEGIN
+	DECLARE @temp_f DECIMAL(5,1);
+	SET @temp_f = @temp_c*9/5+32
+	RETURN @temp_f;
 END;
+GO
 
-SELECT sales.temperature1(@celsius)
-
-
---Не получилось, не понимаю какая структура запроса должна быть. Делала по твоему примеру.
---При создании функции ошибки нет - Commands completed successfully
---Функция SELECT не выводится. Ошибка: Must declare the scalar variable "@celsius".
---Но когда я пытаюсь создать переменную эту - пишет, что она уже есть.
+SELECT dbo.functi(10.5) as results
 
 
 --**5. Найдите первый будний день месяца (FROM не используем). Нужен стандартный код на все времена (используем функцию текущей даты и идем от нее)
